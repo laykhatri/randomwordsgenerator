@@ -1,0 +1,28 @@
+{
+  "name": "randomwordsgenerator",
+  "version": "1.0.0",
+  "description": "Mini library to generate random english words from Dictionary",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --loader ts-node/esm .\\src\\index.ts",
+    "build": "npx tsc ",
+    "postbuild":"npm run copyMySpecialFiles",
+    "copyMySpecialFiles" : "copyfiles --error -u 2 src/lib/words.txt dist"
+  },
+  "keywords": ["random","word","generator","english"],
+  "author": "LayKhatri",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.9.3"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "copyfiles": "^2.4.1",
+    "ts-node": "^10.9.1"
+  }
+}
