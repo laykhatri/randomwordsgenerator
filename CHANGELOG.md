@@ -1,3 +1,11 @@
+# V 1.3.0 - 20th Nov 2022
+
+- Readme updated with proper information
+- Added support for "mustContain", Enables to find word which includes that string
+- Added support to add your own List to the RWG.
+
+<br/>
+
 # V 1.2.1 - 20th Nov 2022
 
 - Readme updated with proper information

@@ -35,6 +35,7 @@ let rwg = new RWG()
 - minLength: _number_ - 0 default
 - maxLength: _number_ - 0 default
 - exactLength: _number_ - 0 default
+- mustContain: _string_ - undefined default
 
 ## Example
 
@@ -50,6 +51,9 @@ console.log(rwg.GetWords({count:15, minLength:5}))
 
 //get random 15 words with atleast length of 5 and maximum of 9
 console.log(rwg.GetWords({count:15, minLength:5, maxLength:9}))
+
+//get random 15 words which includes specific sequence of char
+console.log(rwg.GetWords({count:15, mustContain:"te"}))
 ```
 
 You can use combination of those properties as per your requirements.

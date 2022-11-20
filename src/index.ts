@@ -1,4 +1,4 @@
-import {RWG} from "./lib/RWG";
+import { RWG } from "./lib/RWG";
 
-let rwg = new RWG();
-console.log(  rwg.GetWords({minLength:5}));
+let rwg = new RWG(["hello", "hell", "hel", "he"]);
+console.log(rwg.GetWordsCount());
