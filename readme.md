@@ -31,16 +31,18 @@ let rwg = new RWG()
 
 ## Parameters for GetWords
 
-- count: _number_ - 5 default
-- minLength: _number_ - 0 default
-- maxLength: _number_ - 0 default
-- exactLength: _number_ - 0 default
+- count: _number_ - undefined default
+- minLength: _number_ - undefined default
+- maxLength: _number_ - undefined default
+- exactLength: _number_ - undefined default
 - mustContain: _string_ - undefined default
+- startWith: _string_ - undefined default
+- endWith: _string_ - undefined default
 
 ## Example
 
 ```
-//get random 5 words
+//get all words
 console.log(rwg.GetWords())
 
 //get ranodm 15 words
