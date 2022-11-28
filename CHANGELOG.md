@@ -1,3 +1,11 @@
+# V 2.0.0 - 28th Nov 2022
+
+- Added support for startWith and endWith functionality
+- Optimized code for getting words. Reduced unwanted Function calls
+- Updated Testcase as per new Build
+
+<br/>
+
 # V 1.3.0 - 20th Nov 2022
 
 - Readme updated with proper information

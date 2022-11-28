@@ -1,6 +1,6 @@
 {
   "name": "randomwordsgenerator",
-  "version": "1.3.0",
+  "version": "2.0.0",
   "description": "Mini library to generate random english words from Dictionary",
   "main": "RWG.js",
   "types": "RWG.d.ts",
@@ -10,7 +10,8 @@
   "scripts": {
     "test": "npx jest",
     "build": "node --loader ts-node/esm .\\src\\index.ts",
-    "publish": "npm run test && npx tsc",
+    "prepublish" : "npm run test",
+    "publish": " npx tsc",
     "postpublish": "npm run copyAssets && npm run copyInfo && npm run cleanUpPublish",
     "copyAssets": "copyfiles --error -u 2 src/lib/words.zip dist",
     "copyInfo": "copyfiles --error readme.md dist",

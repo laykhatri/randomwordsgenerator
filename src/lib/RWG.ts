@@ -4,17 +4,21 @@ interface iRWGOptions {
   maxLength: NumberUndefined;
   exactLength: NumberUndefined;
   mustContain: StringUndefined;
+  startWith: StringUndefined;
+  endWith: StringUndefined;
 }
 
 type NumberUndefined = number | undefined;
 type StringUndefined = string | undefined;
 
 class RWGOptions implements iRWGOptions {
+  startWith: StringUndefined = undefined;
+  endWith: StringUndefined = undefined;
   mustContain: StringUndefined = undefined;
-  count: NumberUndefined = 5;
-  minLength: NumberUndefined = 0;
-  maxLength: NumberUndefined = 0;
-  exactLength: NumberUndefined = 0;
+  count: NumberUndefined = undefined;
+  minLength: NumberUndefined = undefined;
+  maxLength: NumberUndefined = undefined;
+  exactLength: NumberUndefined = undefined;
 }
 class RWG {
   private wordList: string[] = [];
@@ -39,27 +43,40 @@ class RWG {
     this.wordListLength = this.wordList.length;
   }
 
-  public GetWords(options: Partial<RWGOptions> = new RWGOptions()) {
+  public GetWords(options: Partial<RWGOptions> = new RWGOptions()): string[] {
+    let words = this.wordList.filter(
+      (f) =>
+        (options.mustContain === undefined
+          ? f.includes("")
+          : f.includes(options.mustContain)) &&
+        (options.exactLength === undefined
+          ? (options.minLength === undefined
+              ? f.length >= -1
+              : f.length >= options.minLength) &&
+            (options.maxLength === undefined
+              ? f.length >= -1
+              : f.length <= options.maxLength)
+          : f.length === options.exactLength) &&
+        (options.startWith === undefined
+          ? f.startsWith("")
+          : f.startsWith(options.startWith)) &&
+        (options.endWith === undefined
+          ? f.endsWith("")
+          : f.endsWith(options.endWith))
+    );
+
     if (options.count === undefined) {
-      options.count = 5;
+      return words;
     }
-    if (options!.exactLength! > 0) {
-      return this.GetLengthBased(
-        options!.exactLength!,
-        options!.exactLength!,
-        options.count!,
-        options!.mustContain === undefined ? "" : options.mustContain!
-      );
-    } else if (options!.maxLength! > 0 || options!.minLength! > 0) {
-      return this.GetLengthBased(
-        options!.minLength!,
-        options!.maxLength!,
-        options.count!,
-        options!.mustContain === undefined ? "" : options.mustContain!
-      );
-    } else {
-      return this.GetRandomWords(options.count!, options!.mustContain!);
+
+    let wordsLength: number = words.length;
+    let returnWords: string[] = [];
+
+    for (let i = 0; i < options.count; i++) {
+      returnWords.push(words[this.GetRandomIndex(wordsLength)]);
     }
+
+    return returnWords;
   }
 
   public GetWordsCount() {
@@ -69,46 +86,6 @@ class RWG {
   private GetRandomIndex = (length: number) => {
     return Math.round(Math.random() * length);
   };
-
-  private GetRandomWords(count: number, mustContain: string) {
-    let returnWords: string[] = [];
-    let words: string[] = [];
-    let wordsLength: number = 0;
-    if (mustContain !== "") {
-      words = this.wordList.filter((w) => w.includes(mustContain));
-      wordsLength = words.length;
-    }
-    for (let i = 0; i < count; i++) {
-      if (wordsLength > 0) {
-        returnWords.push(words[this.GetRandomIndex(wordsLength)]);
-      } else {
-        returnWords.push(
-          this.wordList[this.GetRandomIndex(this.wordListLength)]
-        );
-      }
-    }
-    return returnWords;
-  }
-
-  private GetLengthBased(
-    min: number,
-    max: number,
-    count: number,
-    mustContain: string
-  ) {
-    let returnWords: string[] = [];
-    let lengthBasedList: string[] = this.wordList.filter(
-      (f) =>
-        (min > 0 ? f.length >= min : f.length > -1) &&
-        (max > 0 ? f.length <= max : f.length > -1) &&
-        (mustContain !== "" ? f.includes(mustContain) : f.includes(""))
-    );
-    const lengthBasedLength: number = lengthBasedList.length;
-    for (let i = 0; i < count; i++) {
-      returnWords.push(lengthBasedList[this.GetRandomIndex(lengthBasedLength)]);
-    }
-    return returnWords;
-  }
 }
 
 export { RWG };
